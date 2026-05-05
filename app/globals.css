@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/* ─── Loopmind Brand Tokens ─── */
+:root {
+  --color-accent: #E42208;
+  --color-accent-deep: #400101;
+  --color-surface: #0a0a0a;
+  --color-surface-elevated: #141414;
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a1a1aa;
+}
+
+/* ─── Tailwind v4 Theme Extension ─── */
+@theme {
+  --color-accent: #E42208;
+  --color-accent-deep: #400101;
+  --color-surface: #0a0a0a;
+  --color-surface-elevated: #141414;
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a1a1aa;
+}
+
+/* ─── Base Styles ─── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Custom Scrollbar (Webkit) ─── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #333 var(--color-surface);
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+/* ─── Floating Particles ─── */
+@keyframes float-particle {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translate(15px, -25px) scale(1.15);
+    opacity: 0.5;
+  }
+  66% {
+    transform: translate(-10px, -40px) scale(0.9);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(20px, -15px) scale(1.1);
+    opacity: 0.25;
+  }
+}
