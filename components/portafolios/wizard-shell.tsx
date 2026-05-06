@@ -43,6 +43,8 @@ export function WizardShell({ tier }: WizardShellProps) {
   const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
 
   const draftRef = useRef<ReturnType<typeof loadDraft>>(null);
+  const draftCheckedRef = useRef(false);
+  const autoSaveEnabledRef = useRef(false);
 
   const form = useForm({
     resolver: zodResolver(schema),
@@ -50,13 +52,16 @@ export function WizardShell({ tier }: WizardShellProps) {
     defaultValues: {},
   });
 
-  // Initialize session and check for drafts
+  // Initialize session and check for drafts (once only)
   useEffect(() => {
+    if (draftCheckedRef.current) return;
+    draftCheckedRef.current = true;
+
     const sid = getSessionId(tier);
     setSessionId(sid);
 
     const draft = loadDraft(tier);
-    if (draft) {
+    if (draft && Object.values(draft.formData).some((v) => v !== "" && v !== undefined)) {
       draftRef.current = draft;
       setDraftLastSaved(draft.lastSaved);
       setShowDraftModal(true);
@@ -72,11 +77,19 @@ export function WizardShell({ tier }: WizardShellProps) {
     }
   }, [tier, config.steps.length, searchParams]);
 
-  // Auto-save on form changes (debounced)
+  // Auto-save on form changes (debounced) — only after user interacts
   useEffect(() => {
     if (!sessionId) return;
 
     const subscription = form.watch((values) => {
+      // Don't auto-save empty forms
+      const hasData = Object.values(values).some(
+        (v) => v !== "" && v !== undefined && v !== null
+      );
+      if (!hasData) return;
+
+      autoSaveEnabledRef.current = true;
+
       const timeout = setTimeout(() => {
         saveDraft(
           tier,
@@ -112,6 +125,7 @@ export function WizardShell({ tier }: WizardShellProps) {
     clearSessionId(tier);
     const newSid = getSessionId(tier);
     setSessionId(newSid);
+    autoSaveEnabledRef.current = false;
     setShowDraftModal(false);
   }, [tier]);
 
