@@ -24,6 +24,7 @@ export interface FieldConfig {
   options?: { value: string; label: string }[];
   fields?: FieldConfig[]; // for repeater sub-fields
   helperText?: string;
+  showWhen?: { field: string; value: string }; // conditional visibility
 }
 
 export interface StepConfig {

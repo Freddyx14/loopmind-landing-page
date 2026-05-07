@@ -85,6 +85,7 @@ export const proSchema = z.object({
   projects: z.array(projectSchema).optional(),
   // Step 6: Preferencias
   color_preference: z.string().optional(),
+  custom_colors: z.array(z.string()).optional(),
   domain_preference: z.string().optional(),
   // Step 7: Testimonios
   testimonials: z.array(testimonialSchema).optional(),
@@ -104,6 +105,8 @@ export const premiumSchema = z.object({
   socials: z.record(z.string(), z.string()).optional(),
   // Step 5: Proyectos (optional — client can skip)
   projects: z.array(projectSchema).optional(),
+  // Color (from preferences in Premium)
+  custom_colors: z.array(z.string()).optional(),
   // Step 6: Direccion creativa
   design_references: z.array(z.string().url()).optional(),
   brand_values: z.string().optional(),

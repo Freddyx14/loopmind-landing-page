@@ -228,6 +228,15 @@ const preferencesStep: StepConfig = {
       ],
     },
     {
+      name: "custom_colors",
+      type: "tags",
+      label: "Tus colores",
+      placeholder: "Ej: #E42208, azul oscuro, dorado...",
+      maxItems: 4,
+      helperText: "Agrega hasta 4 colores (nombre, hex, o descripcion).",
+      showWhen: { field: "color_preference", value: "custom" },
+    },
+    {
       name: "domain_preference",
       type: "text",
       label: "Dominio .lat preferido",
