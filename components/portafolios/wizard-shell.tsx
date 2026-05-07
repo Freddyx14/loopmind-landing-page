@@ -152,9 +152,6 @@ export function WizardShell({ tier }: WizardShellProps) {
   }, []);
 
   const handleSubmit = useCallback(async () => {
-    const isValid = await form.trigger();
-    if (!isValid) return;
-
     setSubmitting(true);
 
     try {
@@ -171,7 +168,7 @@ export function WizardShell({ tier }: WizardShellProps) {
         contact_phone: (formData as any).contact_phone,
         linkedin_url: (formData as any).linkedin_url,
         form_data: formData as Record<string, unknown>,
-        files: [], // File paths are already in form_data
+        files: [],
       });
 
       if (result.success) {
@@ -180,7 +177,7 @@ export function WizardShell({ tier }: WizardShellProps) {
         setSubmitted(true);
       }
     } catch {
-      // Error handling — toast notification would go here
+      // Error handling
     } finally {
       setSubmitting(false);
     }
