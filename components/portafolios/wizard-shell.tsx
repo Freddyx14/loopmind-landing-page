@@ -130,13 +130,21 @@ export function WizardShell({ tier }: WizardShellProps) {
   }, [tier]);
 
   const handleNext = useCallback(async () => {
+    const stepConfig = config.steps[currentStep];
     const fieldNames = getStepFieldNames(tier, currentStep);
-    const isValid = await form.trigger(fieldNames as any);
-    if (!isValid) return;
+
+    // If the step has no required fields, skip validation entirely
+    const hasRequiredFields = stepConfig.fields.some((f) => f.required);
+
+    if (hasRequiredFields && fieldNames.length > 0) {
+      form.clearErrors(fieldNames as any);
+      const isValid = await form.trigger(fieldNames as any);
+      if (!isValid) return;
+    }
 
     setDirection(1);
     setCurrentStep((s) => Math.min(s + 1, config.steps.length - 1));
-  }, [form, tier, currentStep, config.steps.length]);
+  }, [form, tier, currentStep, config]);
 
   const handleBack = useCallback(() => {
     setDirection(-1);
@@ -294,7 +302,7 @@ export function WizardShell({ tier }: WizardShellProps) {
                   type="button"
                   onClick={handleSubmit}
                   disabled={submitting}
-                  className="rounded-lg bg-accent px-6 py-2.5 text-sm font-medium text-white hover:bg-accent/90 transition-colors disabled:opacity-50"
+                  className="rounded-lg bg-accent px-6 py-2.5 text-sm font-medium text-white hover:bg-accent/80 hover:shadow-[0_0_20px_rgba(228,34,8,0.3)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none"
                 >
                   {submitting ? "Enviando..." : "Enviar formulario"}
                 </button>
@@ -302,7 +310,7 @@ export function WizardShell({ tier }: WizardShellProps) {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="rounded-lg bg-accent px-6 py-2.5 text-sm font-medium text-white hover:bg-accent/90 transition-colors"
+                  className="rounded-lg bg-accent px-6 py-2.5 text-sm font-medium text-white hover:bg-accent/80 hover:shadow-[0_0_20px_rgba(228,34,8,0.3)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
                 >
                   Siguiente
                 </button>

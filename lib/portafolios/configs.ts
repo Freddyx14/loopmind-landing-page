@@ -154,14 +154,14 @@ const extraStep: StepConfig = {
 const projectsStep: StepConfig = {
   id: "proyectos",
   title: "Tus proyectos",
-  description: "Agrega los proyectos que quieres mostrar en tu portafolio.",
+  description: "Agrega los proyectos que quieres mostrar en tu portafolio. Si no tienes proyectos por ahora, puedes omitir este paso.",
   fields: [
     {
       name: "projects",
       type: "repeater",
       label: "Proyectos",
-      required: true,
-      helperText: "Agrega entre 2 y 4 proyectos.",
+      required: false,
+      helperText: "Opcional. Agrega hasta 4 proyectos.",
       maxItems: 4,
       fields: [
         {
@@ -200,11 +200,11 @@ const projectsStep: StepConfig = {
 
 const projectsStepPremium: StepConfig = {
   ...projectsStep,
-  description: "Agrega al menos 4 proyectos con imagenes para tu portafolio premium.",
+  description: "Agrega tus proyectos con imagenes para tu portafolio premium. Si no tienes por ahora, puedes omitir este paso.",
   fields: [
     {
       ...projectsStep.fields[0],
-      helperText: "Agrega al menos 4 proyectos con imagenes.",
+      helperText: "Opcional. Agrega hasta 10 proyectos con imagenes.",
       maxItems: 10,
     },
   ],

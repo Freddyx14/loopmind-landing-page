@@ -81,8 +81,8 @@ export const proSchema = z.object({
   linkedin_url: urlSchema,
   contact_phone: phoneSchema.optional().or(z.literal("")),
   socials: z.record(z.string(), z.string()).optional(),
-  // Step 5: Proyectos
-  projects: z.array(projectSchema).min(1, "Agrega al menos 1 proyecto"),
+  // Step 5: Proyectos (optional — client can skip)
+  projects: z.array(projectSchema).optional(),
   // Step 6: Preferencias
   color_preference: z.string().optional(),
   domain_preference: z.string().optional(),
@@ -102,8 +102,8 @@ export const premiumSchema = z.object({
   linkedin_url: urlSchema,
   contact_phone: phoneSchema.optional().or(z.literal("")),
   socials: z.record(z.string(), z.string()).optional(),
-  // Step 5: Proyectos
-  projects: z.array(projectSchema).min(2, "Agrega al menos 2 proyectos"),
+  // Step 5: Proyectos (optional — client can skip)
+  projects: z.array(projectSchema).optional(),
   // Step 6: Direccion creativa
   design_references: z.array(z.string().url()).optional(),
   brand_values: z.string().optional(),
