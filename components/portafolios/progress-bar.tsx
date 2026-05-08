@@ -28,7 +28,7 @@ export function ProgressBar({
       </div>
 
       {/* Progress bar */}
-      <div className="h-1 w-full rounded-full bg-zinc-800 overflow-hidden">
+      <div className="h-1 w-full rounded-full bg-surface-elevated overflow-hidden">
         <motion.div
           className="h-full rounded-full bg-accent"
           initial={{ width: 0 }}
@@ -47,7 +47,7 @@ export function ProgressBar({
                 ? "w-6 bg-accent"
                 : i < currentStep
                 ? "w-1.5 bg-accent/50"
-                : "w-1.5 bg-zinc-700"
+                : "w-1.5 bg-text-secondary/30"
             }`}
           />
         ))}

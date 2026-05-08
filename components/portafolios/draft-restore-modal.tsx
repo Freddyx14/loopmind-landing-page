@@ -38,7 +38,7 @@ export function DraftRestoreModal({
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
-            className="w-full max-w-sm rounded-xl border border-zinc-800 bg-surface p-6 space-y-4"
+            className="w-full max-w-sm rounded-xl border pf-card !bg-[var(--color-surface)] p-6 space-y-4"
           >
             <div className="space-y-1.5">
               <h3 className="text-base font-semibold text-text-primary">
@@ -61,7 +61,7 @@ export function DraftRestoreModal({
               <button
                 type="button"
                 onClick={onDiscard}
-                className="w-full rounded-lg border border-zinc-700 px-4 py-2.5 text-sm font-medium text-text-secondary hover:text-text-primary hover:border-zinc-600 transition-colors"
+                className="w-full rounded-lg border border-text-secondary/20 px-4 py-2.5 text-sm font-medium text-text-secondary hover:text-text-primary hover:border-zinc-600 transition-colors"
               >
                 Empezar de nuevo
               </button>

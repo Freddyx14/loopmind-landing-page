@@ -60,37 +60,7 @@ const photoStep: StepConfig = {
   ],
 };
 
-const contactStepBasic: StepConfig = {
-  id: "contacto",
-  title: "Datos de contacto",
-  description: "Como te pueden contactar las personas que vean tu portafolio.",
-  fields: [
-    {
-      name: "contact_email",
-      type: "email",
-      label: "Email de contacto",
-      placeholder: "tu@email.com",
-      required: true,
-    },
-    {
-      name: "linkedin_url",
-      type: "url",
-      label: "LinkedIn",
-      placeholder: "https://linkedin.com/in/tu-perfil",
-      required: false,
-    },
-    {
-      name: "contact_phone",
-      type: "phone",
-      label: "Telefono / WhatsApp",
-      placeholder: "+51 999 999 999",
-      required: false,
-      helperText: "Opcional. Se mostrara en tu portafolio si lo deseas.",
-    },
-  ],
-};
-
-const contactStepWithSocials: StepConfig = {
+const contactStep: StepConfig = {
   id: "contacto",
   title: "Datos de contacto",
   description: "Tus datos de contacto y redes sociales.",
@@ -115,23 +85,84 @@ const contactStepWithSocials: StepConfig = {
       label: "Telefono / WhatsApp",
       placeholder: "+51 999 999 999",
       required: false,
+      helperText: "Opcional. Se mostrara en tu portafolio si lo deseas.",
     },
     {
       name: "socials",
       type: "tags",
-      label: "Otras redes sociales",
+      label: "Redes sociales",
       placeholder: "Agrega tus perfiles (GitHub, Instagram, Behance, etc.)",
-      helperText: "Pega las URLs de tus perfiles, una por una.",
+      helperText: "Pega las URLs de tus perfiles, una por una. Sin limite.",
     },
   ],
 };
 
-// -- Tier-specific steps --
+// -- Confirmation step (shared, no fields — rendered specially) --
 
-const extraStep: StepConfig = {
+const confirmationStep: StepConfig = {
+  id: "confirmacion",
+  title: "Confirmar y enviar",
+  description: "Revisa tus datos antes de enviar.",
+  fields: [],
+};
+
+// -- Starter-specific steps --
+
+const colorStepStarter: StepConfig = {
+  id: "preferencias",
+  title: "Preferencia de color",
+  description: "Elige un color para tu portafolio.",
+  fields: [
+    {
+      name: "custom_colors",
+      type: "text",
+      label: "Tu color",
+      placeholder: "Ej: azul oscuro, #E42208, dorado...",
+      helperText: "Escribe un color (nombre, hex, o descripcion).",
+    },
+  ],
+};
+
+// -- Plus-specific steps --
+
+const certificationFields: FieldConfig[] = [
+  {
+    name: "certifications",
+    type: "repeater",
+    label: "Certificaciones",
+    required: false,
+    maxItems: 5,
+    helperText: "Agrega hasta 5 certificaciones.",
+    fields: [
+      {
+        name: "name",
+        type: "text",
+        label: "Nombre del certificado",
+        placeholder: "Ej: CS50x, Google Analytics, AWS Cloud Practitioner",
+        required: true,
+      },
+      {
+        name: "issuer",
+        type: "text",
+        label: "Institucion",
+        placeholder: "Ej: Harvard University, Google, AWS",
+        required: true,
+      },
+      {
+        name: "date",
+        type: "text",
+        label: "Ano",
+        placeholder: "Ej: 2024",
+        required: false,
+      },
+    ],
+  },
+];
+
+const extraStepPlus: StepConfig = {
   id: "extra",
   title: "Informacion adicional",
-  description: "Logros destacados e idiomas que hablas.",
+  description: "Logros, certificaciones e idiomas.",
   fields: [
     {
       name: "achievements",
@@ -141,6 +172,7 @@ const extraStep: StepConfig = {
       maxItems: 3,
       helperText: "Maximo 3 logros. Ej: 'Primer lugar en hackathon X'",
     },
+    ...certificationFields,
     {
       name: "languages",
       type: "tags",
@@ -151,10 +183,96 @@ const extraStep: StepConfig = {
   ],
 };
 
+const skillsStep: StepConfig = {
+  id: "habilidades",
+  title: "Habilidades",
+  description:
+    "Personaliza las habilidades que se muestran en tu portafolio. Si lo dejas vacio, usaremos las habilidades extraidas de tu CV.",
+  fields: [
+    {
+      name: "skills_override",
+      type: "tags",
+      label: "Habilidades personalizadas",
+      placeholder: "Ej: Estrategia de Negocios, Design Thinking, Liderazgo",
+      helperText:
+        "Preferimos habilidades generales (no solo tecnologias). Si lo dejas vacio, usaremos las del CV.",
+    },
+  ],
+};
+
+function makeColorFields(maxColors: number | undefined): FieldConfig[] {
+  const limitText = maxColors ? `hasta ${maxColors}` : "los que quieras";
+  return [
+    {
+      name: "color_preference",
+      type: "select",
+      label: "Preferencia de color",
+      placeholder: "Selecciona una opcion",
+      options: [
+        { value: "warm", label: "Colores calidos (rojo, naranja, amarillo)" },
+        { value: "cool", label: "Colores frios (azul, verde, morado)" },
+        { value: "neutral", label: "Neutros (gris, negro, blanco)" },
+        { value: "custom", label: "Tengo un color especifico en mente" },
+      ],
+    },
+    {
+      name: "custom_colors",
+      type: "tags",
+      label: "Tus colores",
+      placeholder: "Ej: #E42208, azul oscuro, dorado...",
+      maxItems: maxColors,
+      helperText: `Agrega ${limitText} colores (nombre, hex, o descripcion).`,
+      showWhen: { field: "color_preference", value: "custom" },
+    },
+  ];
+}
+
+const preferencesStepPlus: StepConfig = {
+  id: "preferencias",
+  title: "Preferencias de diseno",
+  description: "Ayudanos a personalizar el look de tu portafolio.",
+  fields: makeColorFields(2),
+};
+
+// -- Pro-specific steps --
+
+const extraStepPro: StepConfig = {
+  id: "extra",
+  title: "Informacion adicional",
+  description: "Logros, certificaciones, idiomas y habilidades.",
+  fields: [
+    {
+      name: "achievements",
+      type: "tags",
+      label: "Logros destacados",
+      placeholder: "Escribe un logro y presiona Enter",
+      maxItems: 3,
+      helperText: "Maximo 3 logros. Ej: 'Primer lugar en hackathon X'",
+    },
+    ...certificationFields,
+    {
+      name: "languages",
+      type: "tags",
+      label: "Idiomas",
+      placeholder: "Ej: Espanol (nativo), Ingles (avanzado)",
+      helperText: "Incluye tu nivel entre parentesis.",
+    },
+    {
+      name: "skills_override",
+      type: "tags",
+      label: "Habilidades personalizadas",
+      placeholder: "Ej: Estrategia de Negocios, Design Thinking, Liderazgo",
+      helperText:
+        "Si lo dejas vacio, usaremos las habilidades extraidas de tu CV.",
+    },
+  ],
+};
+
 const projectsStep: StepConfig = {
   id: "proyectos",
   title: "Tus proyectos",
-  description: "Agrega los proyectos que quieres mostrar en tu portafolio. Si no tienes proyectos por ahora, puedes omitir este paso.",
+  description:
+    "Agrega los proyectos que quieres mostrar en tu portafolio. Si no tienes proyectos por ahora, puedes omitir este paso.",
   fields: [
     {
       name: "projects",
@@ -175,7 +293,8 @@ const projectsStep: StepConfig = {
           name: "description",
           type: "textarea",
           label: "Descripcion",
-          placeholder: "Que hiciste, que tecnologias usaste, cual fue el resultado...",
+          placeholder:
+            "Que hiciste, que tecnologias usaste, cual fue el resultado...",
           required: true,
         },
         {
@@ -194,55 +313,6 @@ const projectsStep: StepConfig = {
           required: false,
         },
       ],
-    },
-  ],
-};
-
-const projectsStepPremium: StepConfig = {
-  ...projectsStep,
-  description: "Agrega tus proyectos con imagenes para tu portafolio premium. Si no tienes por ahora, puedes omitir este paso.",
-  fields: [
-    {
-      ...projectsStep.fields[0],
-      helperText: "Opcional. Agrega hasta 10 proyectos con imagenes.",
-      maxItems: 10,
-    },
-  ],
-};
-
-const preferencesStep: StepConfig = {
-  id: "preferencias",
-  title: "Preferencias de diseno",
-  description: "Ayudanos a personalizar el look de tu portafolio.",
-  fields: [
-    {
-      name: "color_preference",
-      type: "select",
-      label: "Preferencia de color",
-      placeholder: "Selecciona una opcion",
-      options: [
-        { value: "warm", label: "Colores calidos (rojo, naranja, amarillo)" },
-        { value: "cool", label: "Colores frios (azul, verde, morado)" },
-        { value: "neutral", label: "Neutros (gris, negro, blanco)" },
-        { value: "custom", label: "Tengo un color especifico en mente" },
-      ],
-    },
-    {
-      name: "custom_colors",
-      type: "tags",
-      label: "Tus colores",
-      placeholder: "Ej: #E42208, azul oscuro, dorado...",
-      maxItems: 4,
-      helperText: "Agrega hasta 4 colores (nombre, hex, o descripcion).",
-      showWhen: { field: "color_preference", value: "custom" },
-    },
-    {
-      name: "domain_preference",
-      type: "text",
-      label: "Dominio .lat preferido",
-      placeholder: "tunombre.lat",
-      helperText:
-        "Incluido en tu plan. Ej: juanperez.lat. Verificaremos disponibilidad.",
     },
   ],
 };
@@ -291,6 +361,281 @@ const testimonialsStep: StepConfig = {
       ],
     },
   ],
+};
+
+const statsStep: StepConfig = {
+  id: "metricas",
+  title: "Metricas destacadas",
+  description:
+    "Numeros que impresionan: proyectos completados, clientes, posicion en ranking, etc.",
+  fields: [
+    {
+      name: "stats",
+      type: "repeater",
+      label: "Metricas",
+      required: false,
+      maxItems: 4,
+      helperText: "Hasta 4 metricas. Ej: 'Top 5%' — 'Facultad'",
+      fields: [
+        {
+          name: "value",
+          type: "text",
+          label: "Valor",
+          placeholder: "Ej: Top 5%, 1,000+, $60K+",
+          required: true,
+        },
+        {
+          name: "label",
+          type: "text",
+          label: "Etiqueta",
+          placeholder: "Ej: Facultad, Asistentes a eventos",
+          required: true,
+        },
+      ],
+    },
+    {
+      name: "tagline",
+      type: "text",
+      label: "Tagline / Frase de posicionamiento",
+      placeholder:
+        "Ej: En la interseccion de negocios, tecnologia y emprendimiento.",
+      helperText:
+        "Una linea que te define profesionalmente. Si lo dejas vacio, generaremos una basada en tu CV.",
+    },
+  ],
+};
+
+const preferencesStepPro: StepConfig = {
+  id: "preferencias",
+  title: "Preferencias de diseno",
+  description: "Personaliza el look de tu portafolio Pro.",
+  fields: [
+    ...makeColorFields(2),
+    {
+      name: "domain_preference",
+      type: "text",
+      label: "Dominio .lat preferido",
+      placeholder: "tunombre.lat",
+      helperText:
+        "Incluido gratis por 1 ano en tu plan Pro. Verificaremos disponibilidad.",
+    },
+  ],
+};
+
+// -- Premium-specific steps --
+
+const extraStepPremium: StepConfig = {
+  id: "extra",
+  title: "Informacion adicional",
+  description: "Logros, certificaciones, idiomas y habilidades.",
+  fields: [
+    {
+      name: "achievements",
+      type: "tags",
+      label: "Logros destacados",
+      placeholder: "Escribe un logro y presiona Enter",
+      maxItems: 3,
+      helperText: "Maximo 3 logros. Ej: 'Primer lugar en hackathon X'",
+    },
+    ...certificationFields,
+    {
+      name: "languages",
+      type: "tags",
+      label: "Idiomas",
+      placeholder: "Ej: Espanol (nativo), Ingles (avanzado)",
+      helperText: "Incluye tu nivel entre parentesis.",
+    },
+    {
+      name: "skills_override",
+      type: "tags",
+      label: "Habilidades personalizadas",
+      placeholder: "Ej: Estrategia de Negocios, Design Thinking, Liderazgo",
+      helperText:
+        "Si lo dejas vacio, usaremos las habilidades extraidas de tu CV.",
+    },
+  ],
+};
+
+const projectsStepPremium: StepConfig = {
+  id: "proyectos",
+  title: "Tus proyectos",
+  description:
+    "Agrega tus proyectos con imagenes para tu portafolio premium. Si no tienes por ahora, puedes omitir este paso.",
+  fields: [
+    {
+      name: "projects",
+      type: "repeater",
+      label: "Proyectos",
+      required: false,
+      helperText: "Opcional. Agrega hasta 10 proyectos con imagenes.",
+      maxItems: 10,
+      fields: [
+        {
+          name: "name",
+          type: "text",
+          label: "Nombre del proyecto",
+          placeholder: "Mi Proyecto",
+          required: true,
+        },
+        {
+          name: "description",
+          type: "textarea",
+          label: "Descripcion",
+          placeholder:
+            "Que hiciste, que tecnologias usaste, cual fue el resultado...",
+          required: true,
+        },
+        {
+          name: "url",
+          type: "url",
+          label: "URL del proyecto",
+          placeholder: "https://mi-proyecto.com",
+          required: false,
+        },
+        {
+          name: "image",
+          type: "file",
+          label: "Screenshot o imagen",
+          accept: FILE_LIMITS.project_image.accept,
+          maxSize: FILE_LIMITS.project_image.maxSize,
+          required: false,
+        },
+      ],
+    },
+  ],
+};
+
+const testimonialsStepPremium: StepConfig = {
+  id: "testimonios",
+  title: "Testimonios y cita personal",
+  description:
+    "Agrega testimonios y una cita o filosofia personal que te represente.",
+  fields: [
+    {
+      name: "testimonials",
+      type: "repeater",
+      label: "Testimonios",
+      required: false,
+      maxItems: 5,
+      fields: [
+        {
+          name: "quote",
+          type: "textarea",
+          label: "Cita",
+          placeholder: "Lo que dijeron sobre tu trabajo...",
+          required: true,
+        },
+        {
+          name: "author",
+          type: "text",
+          label: "Nombre",
+          placeholder: "Maria Garcia",
+          required: true,
+        },
+        {
+          name: "role",
+          type: "text",
+          label: "Cargo",
+          placeholder: "CEO, Empresa X",
+          required: false,
+        },
+        {
+          name: "company",
+          type: "text",
+          label: "Empresa",
+          placeholder: "Empresa X",
+          required: false,
+        },
+      ],
+    },
+    {
+      name: "personal_quote",
+      type: "textarea",
+      label: "Cita personal / Filosofia",
+      placeholder:
+        "Ej: La innovacion ocurre cuando conectas ecosistemas que aun no se conocen.",
+      helperText:
+        "Se mostrara de forma prominente en tu portafolio. Opcional.",
+    },
+  ],
+};
+
+const statsServicesStep: StepConfig = {
+  id: "metricas-servicios",
+  title: "Metricas y servicios",
+  description: "Tus numeros clave y los servicios que ofreces.",
+  fields: [
+    {
+      name: "stats",
+      type: "repeater",
+      label: "Metricas",
+      required: false,
+      maxItems: 4,
+      helperText: "Hasta 4 metricas clave.",
+      fields: [
+        {
+          name: "value",
+          type: "text",
+          label: "Valor",
+          placeholder: "Ej: Top 5%, 1,000+, $60K+",
+          required: true,
+        },
+        {
+          name: "label",
+          type: "text",
+          label: "Etiqueta",
+          placeholder: "Ej: Facultad, Asistentes a eventos",
+          required: true,
+        },
+      ],
+    },
+    {
+      name: "tagline",
+      type: "text",
+      label: "Tagline / Frase de posicionamiento",
+      placeholder:
+        "Ej: En la interseccion de negocios, tecnologia y emprendimiento.",
+      helperText: "Si lo dejas vacio, generaremos una basada en tu CV.",
+    },
+    {
+      name: "services",
+      type: "repeater",
+      label: "Servicios",
+      required: false,
+      maxItems: 3,
+      helperText: "Hasta 3 servicios que ofreces.",
+      fields: [
+        {
+          name: "title",
+          type: "text",
+          label: "Nombre del servicio",
+          placeholder: "Ej: AI y Desarrollo de Productos",
+          required: true,
+        },
+        {
+          name: "description",
+          type: "textarea",
+          label: "Descripcion",
+          placeholder: "Describe brevemente este servicio...",
+          required: true,
+        },
+        {
+          name: "items",
+          type: "tags",
+          label: "Entregables / Items clave",
+          placeholder: "Ej: Prototipo, MVP, Estrategia",
+          maxItems: 4,
+        },
+      ],
+    },
+  ],
+};
+
+const preferencesStepPremium: StepConfig = {
+  id: "preferencias",
+  title: "Preferencias de color",
+  description: "Elige los colores que quieras para tu portafolio premium.",
+  fields: makeColorFields(undefined),
 };
 
 const creativeDirectionStep: StepConfig = {
@@ -347,10 +692,11 @@ const creativeDirectionStep: StepConfig = {
   ],
 };
 
-const extraContentStep: StepConfig = {
+const extraContentStepPremium: StepConfig = {
   id: "contenido-extra",
   title: "Contenido adicional",
-  description: "Secciones personalizadas, multimedia y testimonios.",
+  description:
+    "Secciones personalizadas, multimedia, segunda foto y tu dominio.",
   fields: [
     {
       name: "custom_sections",
@@ -361,43 +707,6 @@ const extraContentStep: StepConfig = {
       helperText: "Texto libre. Nosotros lo disenaremos.",
     },
     {
-      name: "testimonials",
-      type: "repeater",
-      label: "Testimonios",
-      required: false,
-      maxItems: 5,
-      fields: [
-        {
-          name: "quote",
-          type: "textarea",
-          label: "Cita",
-          placeholder: "Lo que dijeron sobre tu trabajo...",
-          required: true,
-        },
-        {
-          name: "author",
-          type: "text",
-          label: "Nombre",
-          placeholder: "Maria Garcia",
-          required: true,
-        },
-        {
-          name: "role",
-          type: "text",
-          label: "Cargo",
-          placeholder: "CEO, Empresa X",
-          required: false,
-        },
-        {
-          name: "company",
-          type: "text",
-          label: "Empresa",
-          placeholder: "Empresa X",
-          required: false,
-        },
-      ],
-    },
-    {
       name: "media",
       type: "file",
       label: "Multimedia adicional",
@@ -405,32 +714,25 @@ const extraContentStep: StepConfig = {
       maxSize: FILE_LIMITS.media.maxSize,
       helperText: "Videos, case studies, PDFs. Maximo 10MB cada uno.",
     },
-  ],
-};
-
-const domainStepPremium: StepConfig = {
-  id: "dominio",
-  title: "Tu dominio",
-  description: "Elige el dominio .com para tu portafolio premium.",
-  fields: [
+    {
+      name: "about_photo",
+      type: "file",
+      label: "Segunda foto (seccion About)",
+      placeholder: "Arrastra tu foto aqui o haz clic para seleccionar",
+      accept: FILE_LIMITS.about_photo.accept,
+      maxSize: FILE_LIMITS.about_photo.maxSize,
+      helperText:
+        "Una foto diferente a la principal, para la seccion About. JPG/PNG/WebP. Max 5MB.",
+    },
     {
       name: "domain_preference",
       type: "text",
       label: "Dominio .com preferido",
       placeholder: "tunombre.com",
       helperText:
-        "Incluido en tu plan Premium. Verificaremos disponibilidad y te confirmaremos.",
+        "Incluido gratis por 1 ano en tu plan Premium. Verificaremos disponibilidad.",
     },
   ],
-};
-
-// -- Confirmation step (shared, no fields — rendered specially) --
-
-const confirmationStep: StepConfig = {
-  id: "confirmacion",
-  title: "Confirmar y enviar",
-  description: "Revisa tus datos antes de enviar.",
-  fields: [],
 };
 
 // -- Full tier configs --
@@ -443,27 +745,38 @@ export const TIER_CONFIGS: Record<Tier, TierConfig> = {
       "Portafolio de 1 pagina",
       "Hosting gratuito (GitHub Pages)",
       "Diseno responsivo",
+      "1 color personalizado",
       "Dominio .github.io",
     ],
     deliveryTime: "2-3 dias habiles",
-    steps: [paymentStep, cvStep, photoStep, contactStepBasic, confirmationStep],
+    steps: [
+      paymentStep,
+      cvStep,
+      photoStep,
+      colorStepStarter,
+      contactStep,
+      confirmationStep,
+    ],
   },
   plus: {
     name: "Plus",
     price: "S/ 199",
     features: [
       "Todo en Starter",
-      "Secciones de logros e idiomas",
-      "Mas redes sociales",
-      "Dominio .github.io personalizado",
+      "Secciones de logros, certificaciones e idiomas",
+      "Habilidades personalizadas",
+      "2 colores personalizados",
+      "Animaciones de scroll reveal",
     ],
     deliveryTime: "3-4 dias habiles",
     steps: [
       paymentStep,
       cvStep,
       photoStep,
-      contactStepWithSocials,
-      extraStep,
+      contactStep,
+      extraStepPlus,
+      skillsStep,
+      preferencesStepPlus,
       confirmationStep,
     ],
   },
@@ -473,20 +786,22 @@ export const TIER_CONFIGS: Record<Tier, TierConfig> = {
     features: [
       "Todo en Plus",
       "Seccion de proyectos con imagenes",
-      "Dominio .lat incluido",
-      "Colores personalizados",
+      "Testimonios de colegas/clientes",
+      "Metricas destacadas y tagline",
+      "Dominio .lat gratis por 1 ano",
       "Foto mejorada con IA",
-      "Testimonios",
     ],
     deliveryTime: "3-5 dias habiles",
     steps: [
       paymentStep,
       cvStep,
       photoStep,
-      contactStepWithSocials,
+      contactStep,
+      extraStepPro,
       projectsStep,
-      preferencesStep,
       testimonialsStep,
+      statsStep,
+      preferencesStepPro,
       confirmationStep,
     ],
   },
@@ -495,10 +810,13 @@ export const TIER_CONFIGS: Record<Tier, TierConfig> = {
     price: "S/ 599",
     features: [
       "Todo en Pro",
-      "Dominio .com incluido",
+      "Dominio .com gratis por 1 ano",
+      "Servicios con cards personalizadas",
+      "Cita personal con animacion",
       "Direccion creativa personalizada",
+      "Colores ilimitados",
       "Animaciones avanzadas",
-      "Secciones ilimitadas",
+      "Toggle de idioma ES/EN",
       "Multimedia (videos, case studies)",
       "Propuesta de diseno antes de empezar",
     ],
@@ -507,11 +825,14 @@ export const TIER_CONFIGS: Record<Tier, TierConfig> = {
       paymentStep,
       cvStep,
       photoStep,
-      contactStepWithSocials,
+      contactStep,
+      extraStepPremium,
       projectsStepPremium,
+      testimonialsStepPremium,
+      statsServicesStep,
+      preferencesStepPremium,
       creativeDirectionStep,
-      extraContentStep,
-      domainStepPremium,
+      extraContentStepPremium,
       confirmationStep,
     ],
   },

@@ -31,7 +31,7 @@ export function PaymentStep({ step, sessionId, tier }: PaymentStepProps) {
       {/* Divider */}
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-zinc-800" />
+          <div className="w-full border-t pf-divider" />
         </div>
         <div className="relative flex justify-center">
           <span className="bg-surface px-3 text-xs text-text-secondary">

@@ -156,7 +156,7 @@ export function FileUpload({
 
       {currentValue && fileName ? (
         // File uploaded state
-        <div className="rounded-lg border border-zinc-700 bg-surface-elevated p-4">
+        <div className="rounded-lg border border-text-secondary/20 bg-surface-elevated p-4">
           <div className="flex items-center gap-3">
             {preview ? (
               <img
@@ -165,7 +165,7 @@ export function FileUpload({
                 className="h-12 w-12 rounded object-cover"
               />
             ) : (
-              <div className="flex h-12 w-12 items-center justify-center rounded bg-zinc-800">
+              <div className="flex h-12 w-12 items-center justify-center rounded bg-surface-elevated">
                 <svg
                   className="h-6 w-6 text-text-secondary"
                   fill="none"
@@ -208,7 +208,7 @@ export function FileUpload({
               ? "border-accent bg-accent/5"
               : error
               ? "border-accent/50 bg-surface-elevated"
-              : "border-zinc-700 bg-surface-elevated hover:border-zinc-500"
+              : "border-text-secondary/20 bg-surface-elevated hover:border-text-secondary/40"
           }`}
         >
           <input
@@ -222,7 +222,7 @@ export function FileUpload({
           {uploading ? (
             <div className="space-y-2">
               <p className="text-sm text-text-secondary">Subiendo...</p>
-              <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+              <div className="w-full h-1.5 bg-surface-elevated rounded-full overflow-hidden">
                 <div
                   className="h-full bg-accent rounded-full transition-all duration-300"
                   style={{ width: `${progress}%` }}

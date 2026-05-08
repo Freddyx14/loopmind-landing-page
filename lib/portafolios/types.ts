@@ -50,7 +50,7 @@ export interface DraftData {
 }
 
 export interface FileReference {
-  type: "cv" | "photo" | "payment_proof" | "project_image" | "media";
+  type: "cv" | "photo" | "payment_proof" | "project_image" | "media" | "about_photo";
   path: string;
   originalName: string;
   size: number;

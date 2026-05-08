@@ -16,6 +16,13 @@ export const TIER_PRICES: Record<Tier, string> = {
   premium: "S/ 599",
 };
 
+export const TIER_PRICES_USD: Record<Tier, string> = {
+  starter: "~$25 USD",
+  plus: "~$50 USD",
+  pro: "~$90 USD",
+  premium: "~$155 USD",
+};
+
 export const TIER_DELIVERY: Record<Tier, string> = {
   starter: "2-3 dias habiles",
   plus: "3-4 dias habiles",
@@ -60,9 +67,14 @@ export const FILE_LIMITS = {
       "application/pdf",
     ],
   },
+  about_photo: {
+    maxSize: 5 * 1024 * 1024, // 5MB
+    accept: ".jpg,.jpeg,.png,.webp",
+    mimeTypes: ["image/jpeg", "image/png", "image/webp"],
+  },
 } as const;
 
-export const PAYMENT_HOLDER = "Freddy Edwin Nanez Choque";
+export const PAYMENT_HOLDER = "Freddy Edwin \u00d1a\u00f1ez Choque";
 
 export const PAYMENT_METHODS = [
   {

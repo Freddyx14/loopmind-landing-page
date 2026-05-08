@@ -6,6 +6,7 @@ import { TextInput } from "./text-input";
 import { TextareaInput } from "./textarea-input";
 import { UrlInput } from "./url-input";
 import { FileUpload } from "./file-upload";
+import { TagInput } from "./tag-input";
 
 interface RepeaterFieldProps {
   name: string;
@@ -69,7 +70,7 @@ export function RepeaterField({
         <button
           type="button"
           onClick={() => append(getDefaultEntry())}
-          className="w-full rounded-lg border border-dashed border-zinc-700 bg-surface-elevated p-6 text-center text-sm text-text-secondary hover:border-zinc-500 transition-colors"
+          className="w-full rounded-lg border border-dashed pf-card bg-surface-elevated p-6 text-center text-sm text-text-secondary pf-border-hover transition-colors"
         >
           + Agregar {label.toLowerCase()}
         </button>
@@ -79,7 +80,7 @@ export function RepeaterField({
         {fields.map((field, index) => (
           <div
             key={field.id}
-            className="rounded-lg border border-zinc-800 bg-surface-elevated/50 p-4 space-y-3"
+            className="rounded-lg border pf-card bg-surface-elevated/50 p-4 space-y-3"
           >
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-medium text-text-secondary">
@@ -140,6 +141,17 @@ export function RepeaterField({
                       tier={tier}
                     />
                   );
+                case "tags":
+                  return (
+                    <TagInput
+                      key={fieldName}
+                      name={fieldName}
+                      label={subField.label}
+                      placeholder={subField.placeholder}
+                      maxItems={subField.maxItems}
+                      helperText={subField.helperText}
+                    />
+                  );
                 default:
                   return null;
               }
@@ -152,7 +164,7 @@ export function RepeaterField({
         <button
           type="button"
           onClick={() => append(getDefaultEntry())}
-          className="w-full rounded-lg border border-dashed border-zinc-700 py-2.5 text-center text-xs text-text-secondary hover:border-zinc-500 hover:text-text-primary transition-colors"
+          className="w-full rounded-lg border border-dashed pf-card py-2.5 text-center text-xs text-text-secondary pf-border-hover hover:text-text-primary transition-colors"
         >
           + Agregar otro
         </button>

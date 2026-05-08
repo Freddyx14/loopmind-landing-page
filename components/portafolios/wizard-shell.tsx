@@ -284,12 +284,12 @@ export function WizardShell({ tier }: WizardShellProps) {
             </AnimatePresence>
 
             {/* Navigation buttons */}
-            <div className="flex justify-between mt-8 pt-4 border-t border-zinc-800">
+            <div className="flex justify-between mt-8 pt-4 border-t pf-divider">
               <button
                 type="button"
                 onClick={handleBack}
                 disabled={currentStep === 0}
-                className="rounded-lg border border-zinc-700 px-5 py-2.5 text-sm font-medium text-text-secondary hover:text-text-primary hover:border-zinc-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                className="rounded-lg border border-text-secondary/20 px-5 py-2.5 text-sm font-medium text-text-secondary hover:text-text-primary hover:border-zinc-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 Atras
               </button>

@@ -26,7 +26,7 @@ export function PaymentAccounts({ compact = false }: PaymentAccountsProps) {
         {PAYMENT_METHODS.map((method) => (
           <div
             key={method.id}
-            className="rounded-lg border border-zinc-800 bg-surface-elevated/50 p-3 space-y-1.5"
+            className="rounded-lg border pf-card p-3 space-y-1.5"
           >
             <div className="flex items-center justify-between">
               <span className={`font-semibold text-text-primary ${compact ? "text-xs" : "text-sm"}`}>
@@ -62,7 +62,7 @@ export function PaymentAccounts({ compact = false }: PaymentAccountsProps) {
             </div>
 
             {"cci" in method && method.cci && (
-              <div className="flex items-center justify-between gap-2 pt-0.5 border-t border-zinc-800/50">
+              <div className="flex items-center justify-between gap-2 pt-0.5 border-t pf-divider">
                 <span className={`text-text-secondary/70 ${compact ? "text-[9px]" : "text-[10px]"}`}>
                   CCI: <code className="font-[family-name:var(--font-space-grotesk)]">{method.cci}</code>
                 </span>

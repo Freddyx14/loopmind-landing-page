@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type { Tier } from "@/lib/portafolios/types";
 import { TIER_CONFIGS } from "@/lib/portafolios/configs";
+import { TIER_PRICES_USD } from "@/lib/portafolios/constants";
 import { PaymentAccounts } from "@/components/portafolios/payment-accounts";
 
 const tiers: Tier[] = ["starter", "plus", "pro", "premium"];
@@ -144,7 +145,7 @@ export default function PortafoliosPage() {
             href="https://wa.me/51967326013?text=Hola!%20Me%20interesa%20un%20portafolio%20profesional"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg border border-zinc-700 px-7 py-3.5 text-sm font-medium text-text-primary hover:border-zinc-500 hover:bg-zinc-900/50 transition-all"
+            className="rounded-lg border border-text-secondary/20 px-7 py-3.5 text-sm font-medium text-text-primary hover:border-text-secondary/40 hover:bg-surface-elevated/50 transition-all"
           >
             Consultar por WhatsApp
           </a>
@@ -160,7 +161,7 @@ export default function PortafoliosPage() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-5 h-8 rounded-full border border-zinc-700 flex items-start justify-center p-1.5"
+            className="w-5 h-8 rounded-full border border-text-secondary/20 flex items-start justify-center p-1.5"
           >
             <div className="w-1 h-1.5 rounded-full bg-text-secondary" />
           </motion.div>
@@ -178,7 +179,7 @@ export default function PortafoliosPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {steps.map((step, i) => (
               <FadeIn key={step.number} delay={i * 0.1}>
-                <div className="relative group rounded-xl border border-zinc-800 bg-surface-elevated/30 p-6 text-center space-y-3 hover:border-zinc-700 transition-colors h-full">
+                <div className="relative group rounded-xl border border-zinc-800 bg-surface-elevated/30 p-6 text-center space-y-3 hover:border-text-secondary/20 transition-colors h-full">
                   {i < steps.length - 1 && (
                     <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-px bg-zinc-800" />
                   )}
@@ -211,8 +212,8 @@ export default function PortafoliosPage() {
                   <div
                     className={`relative rounded-xl border p-5 space-y-4 h-full flex flex-col transition-all duration-300 hover:-translate-y-1 ${
                       isPro
-                        ? "border-accent bg-accent/5 shadow-[0_0_40px_rgba(228,34,8,0.08)]"
-                        : "border-zinc-800 bg-surface-elevated/30 hover:border-zinc-700"
+                        ? "pf-card-pro shadow-[0_0_40px_rgba(228,34,8,0.08)]"
+                        : "pf-card"
                     }`}
                   >
                     {isPro && (
@@ -223,6 +224,7 @@ export default function PortafoliosPage() {
                     <div>
                       <h3 className="text-base font-semibold text-text-primary">{config.name}</h3>
                       <p className="text-2xl font-bold text-text-primary font-[family-name:var(--font-space-grotesk)] mt-1">{config.price}</p>
+                      <p className="text-xs text-text-secondary font-[family-name:var(--font-space-grotesk)]">{TIER_PRICES_USD[tier]}</p>
                     </div>
                     <ul className="space-y-2 flex-1">
                       {config.features.map((feature) => (
@@ -241,7 +243,7 @@ export default function PortafoliosPage() {
                         className={`block w-full text-center rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
                           isPro
                             ? "bg-accent text-white hover:bg-accent/90 hover:shadow-[0_0_20px_rgba(228,34,8,0.3)]"
-                            : "border border-zinc-700 text-text-primary hover:border-zinc-500 hover:bg-zinc-900/50"
+                            : "border border-text-secondary/20 text-text-primary hover:border-text-secondary/40 hover:bg-surface-elevated/50"
                         }`}
                       >
                         Comenzar
@@ -275,7 +277,7 @@ export default function PortafoliosPage() {
           <div className="max-w-2xl mx-auto space-y-3">
             {faqs.map((faq, i) => (
               <FadeIn key={i} delay={i * 0.05}>
-                <details className="group rounded-lg border border-zinc-800 bg-surface-elevated/30 hover:border-zinc-700 transition-colors">
+                <details className="group rounded-lg border pf-card transition-colors">
                   <summary className="cursor-pointer px-5 py-4 text-sm font-medium text-text-primary list-none flex items-center justify-between">
                     {faq.q}
                     <svg className="h-4 w-4 text-text-secondary shrink-0 group-open:rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -307,7 +309,7 @@ export default function PortafoliosPage() {
                 href="https://wa.me/51967326013?text=Hola!%20Me%20interesa%20un%20portafolio%20profesional"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg border border-zinc-700 px-7 py-3.5 text-sm font-medium text-text-primary hover:border-zinc-500 hover:bg-zinc-900/50 transition-all"
+                className="rounded-lg border border-text-secondary/20 px-7 py-3.5 text-sm font-medium text-text-primary hover:border-text-secondary/40 hover:bg-surface-elevated/50 transition-all"
               >
                 Consultar por WhatsApp
               </a>

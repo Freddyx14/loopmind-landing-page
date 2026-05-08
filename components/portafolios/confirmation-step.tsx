@@ -66,7 +66,7 @@ export function ConfirmationStep({ tier, formData }: ConfirmationStepProps) {
         {grouped.map((group) => (
           <div
             key={group.title}
-            className="rounded-lg border border-zinc-800 bg-surface-elevated/50 p-4 space-y-2"
+            className="rounded-lg border pf-card p-4 space-y-2"
           >
             <h4 className="text-xs font-medium text-text-secondary uppercase tracking-wide">
               {group.title}

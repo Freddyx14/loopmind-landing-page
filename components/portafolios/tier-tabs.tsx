@@ -12,7 +12,7 @@ const tiers: Tier[] = ["starter", "plus", "pro", "premium"];
 
 export function TierTabs({ currentTier }: TierTabsProps) {
   return (
-    <nav className="flex gap-1 p-1 rounded-xl bg-zinc-900/50 border border-zinc-800 overflow-x-auto">
+    <nav className="flex gap-1 p-1 rounded-xl pf-card border overflow-x-auto">
       {tiers.map((tier) => {
         const isActive = tier === currentTier;
         const isPro = tier === "pro";
@@ -23,8 +23,8 @@ export function TierTabs({ currentTier }: TierTabsProps) {
             href={`/portafolios/${tier}`}
             className={`relative flex-1 min-w-[80px] flex flex-col items-center gap-0.5 px-3 py-2.5 rounded-lg text-center transition-all ${
               isActive
-                ? "bg-zinc-800 text-text-primary"
-                : "text-text-secondary hover:text-text-primary hover:bg-zinc-800/50"
+                ? "bg-surface-elevated text-text-primary"
+                : "text-text-secondary hover:text-text-primary hover:bg-surface-elevated/50"
             }`}
           >
             {isPro && (

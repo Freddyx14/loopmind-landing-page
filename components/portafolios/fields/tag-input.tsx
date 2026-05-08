@@ -68,13 +68,13 @@ export function TagInput({
         className={`flex flex-wrap gap-2 rounded-lg bg-surface-elevated border px-3 py-2.5 min-h-[44px] ${
           error
             ? "border-accent"
-            : "border-zinc-700 focus-within:border-accent"
+            : "border-text-secondary/20 focus-within:border-accent"
         }`}
       >
         {tags.map((tag, i) => (
           <span
             key={`${tag}-${i}`}
-            className="inline-flex items-center gap-1 rounded-md bg-zinc-800 px-2.5 py-1 text-xs text-text-primary"
+            className="inline-flex items-center gap-1 rounded-md bg-surface-elevated px-2.5 py-1 text-xs text-text-primary"
           >
             {tag}
             <button

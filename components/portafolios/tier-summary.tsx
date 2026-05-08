@@ -8,7 +8,7 @@ interface TierSummaryProps {
 
 export function TierSummary({ config }: TierSummaryProps) {
   return (
-    <div className="rounded-lg border border-zinc-800 bg-surface-elevated/50 p-4">
+    <div className="rounded-lg border pf-card p-4">
       <div className="flex items-baseline justify-between mb-2">
         <h3 className="text-sm font-semibold text-text-primary">
           Plan {config.name}

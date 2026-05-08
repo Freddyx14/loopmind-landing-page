@@ -43,7 +43,7 @@ export function SelectInput({
         className={`w-full rounded-lg bg-surface-elevated border px-4 py-3 text-sm text-text-primary outline-none transition-colors appearance-none ${
           error
             ? "border-accent"
-            : "border-zinc-700 focus:border-accent"
+            : "border-text-secondary/20 focus:border-accent"
         }`}
       >
         <option value="" className="text-text-secondary">

@@ -38,7 +38,7 @@ export function UrlInput({
         className={`w-full rounded-lg bg-surface-elevated border px-4 py-3 text-sm text-text-primary placeholder:text-text-secondary/50 outline-none transition-colors ${
           error
             ? "border-accent"
-            : "border-zinc-700 focus:border-accent"
+            : "border-text-secondary/20 focus:border-accent"
         }`}
       />
       {error && <p className="text-xs text-accent">{error}</p>}
