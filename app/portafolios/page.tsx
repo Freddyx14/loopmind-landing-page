@@ -242,18 +242,29 @@ export default function PortafoliosPage() {
                   rel="noopener noreferrer"
                   className="group block rounded-xl border pf-card p-5 space-y-4 h-full hover:-translate-y-1 transition-all duration-300"
                 >
-                  {/* Preview bar */}
-                  <div className="rounded-lg bg-surface-elevated/50 border border-zinc-800 p-3 space-y-2">
-                    <div className="flex items-center gap-1.5">
+                  {/* Live preview */}
+                  <div className="rounded-lg bg-surface-elevated/50 border border-zinc-800 overflow-hidden">
+                    <div className="flex items-center gap-1.5 px-3 py-2 border-b border-zinc-800/50">
                       <div className="w-2 h-2 rounded-full bg-red-500/60" />
                       <div className="w-2 h-2 rounded-full bg-yellow-500/60" />
                       <div className="w-2 h-2 rounded-full bg-green-500/60" />
                       <span className="ml-2 text-[9px] text-text-secondary/50 truncate">{ex.url.replace("https://", "")}</span>
                     </div>
-                    <div className="h-20 rounded bg-zinc-800/50 flex items-center justify-center">
-                      <span className="text-xs text-text-secondary/40 group-hover:text-accent/60 transition-colors">
-                        {ex.tier}
-                      </span>
+                    <div className="relative w-full overflow-hidden" style={{ height: "140px" }}>
+                      <iframe
+                        src={ex.url}
+                        title={`Preview ${ex.tier}`}
+                        loading="lazy"
+                        className="absolute top-0 left-0 border-0 pointer-events-none"
+                        style={{
+                          width: "1280px",
+                          height: "800px",
+                          transform: "scale(0.17)",
+                          transformOrigin: "top left",
+                        }}
+                        sandbox="allow-scripts allow-same-origin"
+                        tabIndex={-1}
+                      />
                     </div>
                   </div>
 
