@@ -37,7 +37,7 @@ const faqs = [
   { q: "¿Cuanto tiempo toma recibir mi portafolio?", a: "Depende del plan: Starter 2-3 dias, Plus 3-4 dias, Pro 3-5 dias, Premium 5-7 dias habiles." },
   { q: "¿Que necesito para empezar?", a: "Solo tu CV (PDF o Word), una foto profesional, y el comprobante de pago. Nosotros hacemos todo lo demas." },
   { q: "¿Puedo hacer cambios despues?", a: "Si. Todos los planes incluyen 1 ronda de revisiones. El plan Premium incluye revisiones ilimitadas por 30 dias." },
-  { q: "¿El dominio esta incluido?", a: "Pro incluye dominio .lat gratis por 1 ano. Premium incluye dominio .com gratis por 1 ano." },
+  { q: "¿El dominio esta incluido?", a: "Pro y Premium incluyen dominio .com gratis por 1 ano. Starter y Plus incluyen subdominio gratuito bajo loopmind.lat." },
   { q: "¿Que pasa con el hosting?", a: "Tu portafolio se aloja en GitHub Pages (gratuito, rapido, sin limites). No pagas nada adicional por hosting." },
   { q: "¿Puedo pagar en cuotas?", a: "Los planes Starter y Plus son pago unico. Pro y Premium aceptan 2 cuotas (50% al inicio, 50% al recibir)." },
 ];

@@ -414,8 +414,8 @@ const preferencesStepPro: StepConfig = {
     {
       name: "domain_preference",
       type: "text",
-      label: "Dominio .lat preferido",
-      placeholder: "tunombre.lat",
+      label: "Dominio .com preferido",
+      placeholder: "tunombre.com",
       helperText:
         "Incluido gratis por 1 ano en tu plan Pro. Verificaremos disponibilidad.",
     },
@@ -743,10 +743,10 @@ export const TIER_CONFIGS: Record<Tier, TierConfig> = {
     price: "S/ 99",
     features: [
       "Portafolio de 1 pagina",
-      "Hosting gratuito (GitHub Pages)",
+      "Hosting gratuito",
       "Diseno responsivo",
       "1 color personalizado",
-      "Dominio .github.io",
+      "Subdominio gratis .loopmind.lat",
     ],
     deliveryTime: "2-3 dias habiles",
     steps: [
@@ -766,6 +766,7 @@ export const TIER_CONFIGS: Record<Tier, TierConfig> = {
       "Secciones de logros, certificaciones e idiomas",
       "Habilidades personalizadas",
       "2 colores personalizados",
+      "Subdominio gratis .loopmind.lat",
       "Animaciones de scroll reveal",
     ],
     deliveryTime: "3-4 dias habiles",
@@ -788,7 +789,7 @@ export const TIER_CONFIGS: Record<Tier, TierConfig> = {
       "Seccion de proyectos con imagenes",
       "Testimonios de colegas/clientes",
       "Metricas destacadas y tagline",
-      "Dominio .lat gratis por 1 ano",
+      "Dominio .com gratis por 1 ano",
       "Foto mejorada con IA",
     ],
     deliveryTime: "3-5 dias habiles",
