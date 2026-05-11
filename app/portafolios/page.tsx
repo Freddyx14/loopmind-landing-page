@@ -33,6 +33,37 @@ const steps = [
   },
 ];
 
+const examples = [
+  {
+    tier: "Starter" as const,
+    price: "S/ 99",
+    url: "https://starter.loopmind.lat",
+    description: "Minimalista y funcional. Ideal para tener presencia online rapido.",
+    highlights: ["1 color", "3 secciones", "Sin animaciones"],
+  },
+  {
+    tier: "Plus" as const,
+    price: "S/ 199",
+    url: "https://plus.loopmind.lat",
+    description: "Moderno con logros, certificaciones e idiomas. Scroll reveal.",
+    highlights: ["2 colores", "7 secciones", "Animaciones suaves"],
+  },
+  {
+    tier: "Pro" as const,
+    price: "S/ 349",
+    url: "https://pro.loopmind.lat",
+    description: "Proyectos, testimonios, metricas. Diseno profesional completo.",
+    highlights: ["Proyectos con imagenes", "Stats bar", "Dominio .com"],
+  },
+  {
+    tier: "Premium" as const,
+    price: "S/ 599",
+    url: "https://freddynanez.loopmind.lat",
+    description: "Diseno 100% a medida. Servicios, cita personal, toggle ES/EN.",
+    highlights: ["6 colores", "10+ secciones", "Toggle ES/EN"],
+  },
+];
+
 const faqs = [
   { q: "¿Cuanto tiempo toma recibir mi portafolio?", a: "Depende del plan: Starter 2-3 dias, Plus 3-4 dias, Pro 3-5 dias, Premium 5-7 dias habiles." },
   { q: "¿Que necesito para empezar?", a: "Solo tu CV (PDF o Word), una foto profesional, y el comprobante de pago. Nosotros hacemos todo lo demas." },
@@ -189,6 +220,66 @@ export default function PortafoliosPage() {
                   <h3 className="text-sm font-semibold text-text-primary">{step.title}</h3>
                   <p className="text-xs text-text-secondary leading-relaxed">{step.description}</p>
                 </div>
+              </FadeIn>
+            ))}
+          </div>
+        </section>
+
+        {/* Examples */}
+        <section id="ejemplos">
+          <FadeIn className="text-center mb-12">
+            <span className="text-xs font-medium tracking-widest text-accent uppercase">Ejemplos</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-text-primary mt-2">Mira la diferencia entre planes</h2>
+            <p className="text-sm text-text-secondary mt-2">Cada tier se ve y se siente diferente. Explora los ejemplos en vivo.</p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {examples.map((ex, i) => (
+              <FadeIn key={ex.tier} delay={i * 0.08}>
+                <a
+                  href={ex.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block rounded-xl border pf-card p-5 space-y-4 h-full hover:-translate-y-1 transition-all duration-300"
+                >
+                  {/* Preview bar */}
+                  <div className="rounded-lg bg-surface-elevated/50 border border-zinc-800 p-3 space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2 h-2 rounded-full bg-red-500/60" />
+                      <div className="w-2 h-2 rounded-full bg-yellow-500/60" />
+                      <div className="w-2 h-2 rounded-full bg-green-500/60" />
+                      <span className="ml-2 text-[9px] text-text-secondary/50 truncate">{ex.url.replace("https://", "")}</span>
+                    </div>
+                    <div className="h-20 rounded bg-zinc-800/50 flex items-center justify-center">
+                      <span className="text-xs text-text-secondary/40 group-hover:text-accent/60 transition-colors">
+                        {ex.tier}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-baseline justify-between">
+                      <h3 className="text-sm font-semibold text-text-primary">{ex.tier}</h3>
+                      <span className="text-xs font-medium text-accent font-[family-name:var(--font-space-grotesk)]">{ex.price}</span>
+                    </div>
+                    <p className="text-xs text-text-secondary mt-1.5 leading-relaxed">{ex.description}</p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {ex.highlights.map((h) => (
+                      <span key={h} className="text-[10px] px-2 py-0.5 rounded-full bg-accent/8 text-accent/80 border border-accent/10">
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+
+                  <span className="inline-flex items-center gap-1 text-xs text-accent font-medium group-hover:gap-2 transition-all">
+                    Ver ejemplo en vivo
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+                  </span>
+                </a>
               </FadeIn>
             ))}
           </div>
